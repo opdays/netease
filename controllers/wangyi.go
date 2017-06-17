@@ -9,6 +9,7 @@ import (
 	"encoding/base64"
 	json "github.com/bitly/go-simplejson"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
 )
 
 type song struct {
@@ -54,11 +55,19 @@ type PlaylistControler struct {
 type ArtistListControler struct {
 	beego.Controller
 }
+func init()  {
+	logs.SetLogger("console")
+	logs.Info("进入controler init")
+	logs.Debug("进入controler init")
+	logs.Error("进入controler init")
+}
 //关键字搜索接口
 func (c *SongSearchControler) Get() {
+
 	key := c.GetString("key")
 	list := SongSearch(key)
 	c.Data["json"] = list
+	logs.Debug(key)
 	c.ServeJSON()
 }
 

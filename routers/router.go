@@ -9,11 +9,14 @@ package routers
 
 import (
 	"netease/controllers"
-
+	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego"
 )
 
 func init() {
+	beego.Any("/", func(ctx  *context.Context) {
+		ctx.Output.Body([]byte("hello world!"))
+	})
 	nsSong := beego.NewNamespace("/song",
 		beego.NSRouter("/search", &controllers.SongSearchControler{}),
 		beego.NSRouter("/detail", &controllers.SongDetailControler{}),
